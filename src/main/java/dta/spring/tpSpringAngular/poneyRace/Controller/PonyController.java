@@ -57,10 +57,9 @@ public class PonyController {
 	}
 
 	@CrossOrigin(origins = "*")
-	@DeleteMapping("/deletePony/")
+	@DeleteMapping("/deletePony/{id}")
 	public void deleteById(@PathVariable(value = "id") Long ponyId) {
 		Pony p = ponyRepo.findById(ponyId).orElseThrow(() -> new ResourceNotFoundException("pony", "id", ponyId));
 		ponyRepo.delete(p);
-
 	}
 }

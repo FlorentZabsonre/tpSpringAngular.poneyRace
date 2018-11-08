@@ -26,26 +26,27 @@ public class PonyController {
 	PonyRepository ponyRepo;
 
 	@CrossOrigin(origins = "*")
-	@GetMapping("/")
+	@GetMapping("/lesPoneys")
 	public List<Pony> getAll() {
 		return ponyRepo.findAll();
 	}
 
 	@CrossOrigin(origins = "*")
-	@GetMapping("/{id}")
+	@GetMapping("/pony/{id}")
 	public Pony getById(@PathVariable(value = "id") Long ponyId) {
-		return ponyRepo.findById(ponyId).orElseThrow(() -> new ResourceNotFoundException("poney", "id", ponyId));
+		return ponyRepo.findById(ponyId).orElseThrow(() 
+		-> new ResourceNotFoundException("poney", "id", ponyId));
 	}
 
 	@CrossOrigin(origins = "*")
-	@PostMapping(path = "/")
+	@PostMapping(path = "/addPony")
 	public Pony create(@RequestBody Pony pony) {
 		return ponyRepo.save(pony);
 	}
 
 	@CrossOrigin(origins = "*")
-	@PutMapping("/{id}")
-	public Pony updateBy(@PathVariable(value = "id") Long ponId, @RequestBody Pony pony) {
+	@PutMapping("/update")
+	public Pony updateBy(Long ponId, @RequestBody Pony pony) {
 		Pony p = ponyRepo.findById(ponId).orElseThrow(() -> new ResourceNotFoundException("poney", "id", ponId));
 		p.setName(pony.getName());
 		p.setWeight(pony.getWeight());
@@ -56,8 +57,8 @@ public class PonyController {
 	}
 
 	@CrossOrigin(origins = "*")
-	@DeleteMapping("/{id}")
-	public void deleteById(@PathVariable(value = "id") Long ponyId) {
+	@DeleteMapping("/delete")
+	public void deleteById(Long ponyId) {
 		Pony p = ponyRepo.findById(ponyId).orElseThrow(() -> new ResourceNotFoundException("pony", "id", ponyId));
 		ponyRepo.delete(p);
 

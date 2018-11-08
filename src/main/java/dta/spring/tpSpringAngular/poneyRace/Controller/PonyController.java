@@ -45,8 +45,8 @@ public class PonyController {
 	}
 
 	@CrossOrigin(origins = "*")
-	@PutMapping("/update")
-	public Pony updateBy(Long ponId, @RequestBody Pony pony) {
+	@PutMapping("/update/{id}")
+	public Pony updateBy(@PathVariable(value = "id") Long ponId, @RequestBody Pony pony) {
 		Pony p = ponyRepo.findById(ponId).orElseThrow(() -> new ResourceNotFoundException("poney", "id", ponId));
 		p.setName(pony.getName());
 		p.setWeight(pony.getWeight());
@@ -57,8 +57,8 @@ public class PonyController {
 	}
 
 	@CrossOrigin(origins = "*")
-	@DeleteMapping("/delete")
-	public void deleteById(Long ponyId) {
+	@DeleteMapping("/deletePony/")
+	public void deleteById(@PathVariable(value = "id") Long ponyId) {
 		Pony p = ponyRepo.findById(ponyId).orElseThrow(() -> new ResourceNotFoundException("pony", "id", ponyId));
 		ponyRepo.delete(p);
 
